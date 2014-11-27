@@ -1,0 +1,9 @@
+node_modules
+old
+resources
+media
+
+*.log
+*.txt
+
+sitemap.xml
