@@ -240,15 +240,15 @@
 		}
 	};
 
-	PS.util.skillBars = function() {
-		var bars = $('.bar');
-
-		bars.each(function() {
-			var bar = $(this);
-
-			bar.find('.progress').css('width', bar.data('percent') + '%');
-		});
-	};
+	// PS.util.skillBars = function() {
+	// 	var bars = $('.bar');
+	//
+	// 	bars.each(function() {
+	// 		var bar = $(this);
+	//
+	// 		bar.find('.progress').css('width', bar.data('percent') + '%');
+	// 	});
+	// };
 
 	// Plugins
 	PS.util.plugins = {};
@@ -368,7 +368,7 @@
 
 	PS.page.resume = function() {
 		// Fill skill bars
-		PS.util.skillBars();
+		// PS.util.skillBars();
 
 		PS.page.visited.resume = true;
 	};
