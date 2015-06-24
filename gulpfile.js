@@ -1,58 +1,80 @@
-// Include gulp
 var gulp = require('gulp');
-
-// Include Our Plugins
+var del = require('del');
+var vinylPaths = require('vinyl-paths');
+var imagemin = require('gulp-imagemin');
 var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var minifycss = require('gulp-minify-css');
 
-var scriptz = ['js/modernizr.custom.js', 'js/jquery-1.11.1.min.js', 'js/jquery-migrate-1.2.1.min.js', 'js/jquery.address-1.6.min.js', 'js/triple.layout.js', 'js/smoothscroll.js', 'js/nprogress/nprogress.js', 'js/fastclick.js', 'js/jquery.imagesloaded.min.js', 'js/isotope.pkgd.min.js', 'js/twitterFetcher_v12_min.js', 'js/jquery.fitvids.js', 'js/jquery.validate.min.js', 'js/jquery.uniform.min.js', 'js/jquery.fancybox-1.3.4.pack.js', 'js/jquery.debouncedresize.js', 'js/classie.js', 'js/main.2.js'];
-var blogScriptz = ['js/modernizr.custom.js', 'js/jquery-1.11.1.min.js', 'js/jquery-migrate-1.2.1.min.js', 'js/smoothscroll.js', 'js/nprogress/nprogress.js', 'js/fastclick.js', 'js/jquery.fitvids.js', 'js/jquery.fancybox-1.3.4.pack.js', 'js/jquery.tooltipster.min.js', 'js/google-code-prettify/prettify.js', 'js/blog.js'];
-var stylez = ['css/bootstrap.min.css', 'js/nprogress/nprogress.css', 'css/animate.min.css', 'css/font-awesome.min.css', 'css/fontello.css', 'css/jquery.fancybox-1.3.4.css', 'js/google-code-prettify/prettify.css', 'css/uniform.default.css', 'js/mediaelement/mediaelementplayer.css', 'css/tooltipster.css', 'css/main.css'];
-var uglifyOptions = { mangle: true };
+var bases = {
+	src: 'src/',
+	dist: 'public/'
+};
 
-// Concatenate & Minify JS
-gulp.task('scripts', function() {
-    return gulp.src(scriptz)
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest('js'))
-        .pipe(rename('all.min.js'))
-        .pipe(uglify(uglifyOptions))
-        .pipe(gulp.dest('js'));
+// Order matters
+var config = {
+	scripts: ['js/libs/modernizr.custom.js', 'js/libs/jquery-1.11.1.min.js', 'js/libs/jquery-migrate-1.2.1.min.js', 'js/libs/jquery.address-1.6.min.js', 'js/libs/triple.layout.js', 'js/libs/smoothscroll.js', 'js/libs/nprogress/nprogress.js', 'js/libs/fastclick.js', 'js/libs/jquery.imagesloaded.min.js', 'js/libs/isotope.pkgd.min.js', 'js/libs/twitterFetcher_v12_min.js', 'js/libs/jquery.fitvids.js', 'js/libs/jquery.validate.min.js', 'js/libs/jquery.uniform.min.js', 'js/libs/jquery.fancybox-1.3.4.pack.js', 'js/libs/jquery.debouncedresize.js', 'js/libs/classie.js', 'js/main.2.js'],
+	blogScripts: ['js/libs/modernizr.custom.js', 'js/libs/jquery-1.11.1.min.js', 'js/libs/jquery-migrate-1.2.1.min.js', 'js/libs/smoothscroll.js', 'js/libs/nprogress/nprogress.js', 'js/libs/fastclick.js', 'js/libs/jquery.fitvids.js', 'js/libs/jquery.fancybox-1.3.4.pack.js', 'js/libs/jquery.tooltipster.min.js', 'js/libs/google-code-prettify/prettify.js', 'js/blog.js'],
+	polyfills: ['js/libs/html5shiv.min.js', 'js/libs/respond.min.js', 'js/libs/selectivizr-min.js'],
+	styles: ['css/bootstrap.min.css', 'js/nprogress/nprogress.css', 'css/animate.min.css', 'css/font-awesome.min.css', 'css/fontello.css', 'css/jquery.fancybox-1.3.4.css', 'js/google-code-prettify/prettify.css', 'css/uniform.default.css', 'js/mediaelement/mediaelementplayer.css', 'css/tooltipster.css', 'css/main.css'],
+	images: ['images/**/*'],
+	fonts: ['css/fonts/**/*']
+};
+
+gulp.task('clean:js', function() {
+	return gulp.src(bases.dist + 'js/')
+		.pipe(vinylPaths(del));
 });
 
 // Concatenate & Minify JS
-gulp.task('blogScripts', function() {
-    return gulp.src(blogScriptz)
-        .pipe(concat('blog-all.js'))
-        .pipe(rename('blog.min.js'))
-        .pipe(uglify(uglifyOptions))
-        .pipe(gulp.dest('js'));
+gulp.task('scripts', ['clean:js'], function() {
+	gulp.src(config.scripts, {cwd: bases.src})
+		// .pipe(jshint())
+		// .pipe(jshint.reporter('default'))
+		.pipe(uglify({ mangle: true }))
+		.pipe(concat('all.min.js'))
+		.pipe(gulp.dest(bases.dist + 'js/'));
+
+	// Blog has its own script file
+	gulp.src(config.blogScripts, {cwd: bases.src})
+		.pipe(uglify({ mangle: true }))
+		.pipe(concat('blog.min.js'))
+		.pipe(gulp.dest(bases.dist + 'js/'));
+});
+
+gulp.task('clean:css', function() {
+	return gulp.src(bases.dist + 'css/')
+		.pipe(vinylPaths(del));
 });
 
 // Concatenate & minify CSS
-gulp.task('styles', function() {
-    return gulp.src(stylez)
-      .pipe(concat('all.css'))
-      .pipe(gulp.dest('css'))
-      .pipe(rename('all.min.css'))
-      .pipe(minifycss())
-      .pipe(gulp.dest('css'));
+gulp.task('styles', ['clean:css'], function() {
+	gulp.src(config.styles, {cwd: bases.src})
+		.pipe(minifycss())
+		.pipe(concat('all.min.css'))
+		.pipe(gulp.dest(bases.dist + 'css/'));
+
+	// Copy fonts
+	gulp.src(config.fonts, {cwd: bases.src})
+		.pipe(gulp.dest(bases.dist + 'css/fonts/'));
+});
+
+// Copy all other files to public directly
+gulp.task('copy', function() {
+	// Copy images
+	gulp.src(config.images, {cwd: bases.src})
+		.pipe(gulp.dest(bases.dist + 'images/'));
+
+  // Copy polyfill JS for old browsers
+  gulp.src(config.polyfills, {cwd: bases.src})
+    .pipe(gulp.dest(bases.dist + 'js/'));
+});
+
+gulp.task('watch', function() {
+  gulp.watch('src/**/*.*', ['default']);
 });
 
 // Default Task
-gulp.task('default', ['scripts', 'blogScripts', 'styles', 'watch']);
-
-gulp.task('watch', function() {
-
-  // Watch main.css
-  gulp.watch('css/main.css', ['styles']);
-
-  // Watch main.2.js
-  gulp.watch('js/main.2.js', ['scripts']);
-
-  // Watch blog js file
-  gulp.watch('js/blog.js', ['blogScripts']);
-});
+gulp.task('default', ['scripts', 'styles', 'copy']);
