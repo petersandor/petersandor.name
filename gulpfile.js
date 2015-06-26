@@ -73,8 +73,9 @@ gulp.task('copy', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('src/**/*.*', ['default']);
+  gulp.watch('src/js/*.js', ['scripts']);
+  gulp.watch('src/css/*.css', ['styles']);
 });
 
 // Default Task
-gulp.task('default', ['scripts', 'styles', 'copy']);
+gulp.task('default', ['scripts', 'styles', 'copy', 'watch']);
