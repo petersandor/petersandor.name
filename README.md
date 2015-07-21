@@ -5,7 +5,7 @@ Source code of my current personal website - http://petersandor.name
 
 ###Requirements to run locally (if you really want to) :heart:
 - Node.js
-- Gulp
+- Gulp (`npm install -g gulp-cli`)
 - Web server (or use [http-server](https://github.com/indexzero/http-server))
 
 ###Setting up
