@@ -1181,6 +1181,9 @@ h2 i[class^="icon-"], h2 i[class*=" icon-"], h2 i.fa {
 		.media-cell-desc .date .day {
 			display: block; font-size: 32px; font-weight: 800; color: #fff;
 			}
+		.media-cell-desc .date::after {
+			content: attr(title); margin-left: 5px;
+		}
 .portfolio-items .media-cell-desc {
 	text-align: center;
 	}
