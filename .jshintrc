@@ -1,0 +1,9 @@
+{
+	"asi": false,
+	"node": false,
+	"esnext": false,
+	"bitwise": true,
+	"curly": true,
+	"undef": true,
+	"unused": "vars"
+}
