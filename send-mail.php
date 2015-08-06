@@ -6,6 +6,8 @@
 
     // Only process POST reqeusts.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $client_ip = $_SERVER["REMOTE_ADDR"];
+
         // Get the form fields and remove whitespace.
         $name = strip_tags(trim($_POST["name"]));
 				$name = str_replace(array("\r","\n"),array(" "," "),$name);
@@ -29,7 +31,8 @@
 
         // Build the email content.
         $email_content = "Name: $name\n";
-        $email_content .= "Email: $email\n\n";
+        $email_content .= "Email: $email\n";
+        $email_content .= "IP:  $client_ip\n\n";
         $email_content .= "Message:\n$message\n";
 
         // Build the email headers.
