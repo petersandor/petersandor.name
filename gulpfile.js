@@ -26,7 +26,7 @@ var config = {
     'js/libs/fastclick.js',
     'js/libs/jquery.imagesloaded.min.js',
     'js/libs/isotope.pkgd.min.js',
-    'js/libs/twitterFetcher_v12_min.js',
+    'js/libs/twitterFetcher.min.js',
     'js/libs/jquery.fitvids.js',
     'js/libs/jquery.validate.min.js',
     'js/libs/jquery.uniform.min.js',
