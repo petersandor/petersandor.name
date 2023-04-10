@@ -16,7 +16,7 @@ const components = {
   twitter: Twitter,
 }
 
-const defaultSvgClassNames = 'fill-current text-gray-700 dark:text-gray-200';
+const defaultSvgClassNames = 'fill-current text-gray-700 dark:text-gray-200'
 
 const SocialIcon = ({ kind, href, disabled = false, size = 8 }) => {
   if (!href || (kind === 'mail' && !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href)))
@@ -26,9 +26,7 @@ const SocialIcon = ({ kind, href, disabled = false, size = 8 }) => {
   const SvgSizeClassNames = `h-${size} w-${size}`
 
   return disabled ? (
-    <SocialSvg
-      className={`${defaultSvgClassNames} ${SvgSizeClassNames} opacity-25`}
-    />
+    <SocialSvg className={`${defaultSvgClassNames} ${SvgSizeClassNames} opacity-25`} />
   ) : (
     <a
       className="text-sm text-gray-500 transition hover:text-gray-600"
