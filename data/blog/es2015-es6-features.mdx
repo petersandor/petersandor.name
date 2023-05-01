@@ -1,0 +1,232 @@
+---
+title: 'ES2015/ES6 features'
+date: 2016-04-23T13:45:33Z
+lastmod: '2016-04-23'
+tags: ['javascript', 'es6', 'es2015']
+draft: false
+summary: 'In this post I will try to write down some of the new ES2015/ES6 features with code examples'
+layout: PostSimple
+author: ['default']
+---
+
+## var/let and const
+
+The difference between var and let is scoping. var is scoped to the nearest function block and let is scoped to the nearest enclosing block (both are global if outside any block), which can be smaller than a function block. Also, variables declared with let are not visible _before they are declared_ in their enclosing block.
+
+### var
+
+```javascript
+function varTest() {
+  var x = 31;
+  if (true) {
+    var x = 71;  // same variable!
+    console.log(x);  // 71
+  }
+  console.log(x);  // 71
+}
+```
+
+### let
+
+```javascript
+function letTest() {
+  let x = 31;
+  if (true) {
+    let x = 71;  // different variable
+    console.log(x);  // 71
+  }
+  console.log(x);  // 31
+}
+```
+
+### const
+
+```javascript
+const MY_FAV = 7;
+MY_FAV = 20; //fails FF, Chrome, not Safari
+
+console.log("my favorite number is: " + MY_FAV); // 7
+
+const MY_FAV = 20; //throws
+var MY_FAV = 20; //throws
+
+console.log("my favorite number is " + MY_FAV); // 7
+```
+
+You can modify the contents of an object (check the last line of this example).
+
+```javascript
+const FOO; // SyntaxError: missing = in const declaration
+const MY_OBJECT = {"key": "value"}; // works
+
+//fails FF, Chrome, not Safari
+MY_OBJECT = {"OTHER_KEY": "value"};
+
+// Object attributes are not protected
+MY_OBJECT.key = "otherValue";
+```
+
+### Arrow functions
+
+An arrow function expression has a shorter syntax compared to function expressions and lexically binds the this value (does not bind its own this, arguments, super, or new.target). Arrow functions are always anonymous.
+
+```javascript
+// Arrow functions are all bound to this
+(a1, a2, aN) => { foos } // function(a1, a2, aN) { foos }
+// implicit return
+(a1, a2, aN) => a1 + a2  // function(a1, a2, aN) { return a1 + a2 }
+
+// Parentheses are optional when there's one parameter
+(singleParam) => { statements }
+singleParam => { statements }
+```
+
+### Object Literal Extensions
+
+Object literals are extended to support setting the prototype at construction, shorthand for foo: foo assignments, defining methods, making super calls, and computing property names with expressions. Together, these also bring object literals and class declarations closer together, and let object-based design benefit from some of the same conveniences.
+
+```javascript
+var obj = {
+    // __proto__
+    __proto__: theProtoObj,
+    // Shorthand for ‘handler: handler’
+    handler,
+    // Methods
+    toString() {
+     // Super calls
+     return "d " + super.toString();
+    },
+    // Computed (dynamic) property names
+    [ 'prop_' + (() =&gt; 42)() ]: 42
+};
+```
+
+### String templating
+
+```javascript
+console.log("string text line 1\n string text line 2");
+// is equal to
+console.log(`string text line 1
+string text line 2`);
+
+var a = 5, b = 10;
+console.log(`Fifteen is ${a + b} and\nnot ${2 * a + b}.`);
+```
+
+### Data structures
+
+#### Set
+
+```javascript
+let s = new Set()
+s.add("hello").add("hello").add({action: 'goodbye'})
+s.size === 2
+s.has("hello") === true
+for (let key of s.values()) // insertion order
+  console.log(key)
+```
+
+#### Map
+
+```javascript
+let s = { foo: 'bar' }
+let m = new Map()
+m.set("hello", 42)
+m.set(s, 34)
+m.get(s) === 34
+m.size === 2
+for (let [ key, val ] of m.entries())
+    console.log(key + " = " + val)
+```
+
+#### WeakSet
+
+```javascript
+let thingToDelete = {};
+let ws = new WeakSet()
+ws.set(thingToDelete) //cannot be primitive
+ws.has(thingToDelete) === true
+thingToDelete = null;
+ws.has(thingToDelete) === false
+```
+
+### There's more
+
+#### Classes
+
+JavaScript classes are introduced in ECMAScript 6 and are syntactical sugar over JavaScript's existing prototype-based inheritance. The class syntax is not introducing a new object-oriented inheritance model to JavaScript. JavaScript classes provide a much simpler and clearer syntax to create objects and deal with inheritance.
+
+The next example will show the same thing written using the old syntax and then with the new class syntax.
+
+```javascript
+function Animal (name) {
+  this.name = name;  
+}
+Animal.prototype.speak = function () {
+  console.log(this.name + ' makes a noise.');
+};
+```
+
+```javascript
+class Animal { 
+  constructor(name) {
+    this.name = name;
+  }
+  
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+```
+
+#### Promises
+
+```javascript
+// From Jake Archibald's Promises and Back:
+// http://www.html5rocks.com/en/tutorials/es6/promises/#toc-promisifying-xmlhttprequest
+
+function get(url) {
+  // Return a new promise.
+  return new Promise(function(resolve, reject) {
+    // Do the usual XHR stuff
+    var req = new XMLHttpRequest();
+    req.open('GET', url);
+
+    req.onload = function() {
+      // This is called even on 404 etc
+      // so check the status
+      if (req.status == 200) {
+        // Resolve the promise with the response text
+        resolve(req.response);
+      }
+      else {
+        // Otherwise reject with the status text
+        // which will hopefully be a meaningful error
+        reject(Error(req.statusText));
+      }
+    };
+
+    // Handle network errors
+    req.onerror = function() {
+      reject(Error("Network Error"));
+    };
+
+    // Make the request
+    req.send();
+  });
+}
+
+// Use it!
+get('story.json').then(function(response) {
+  console.log("Success!", response);
+}, function(error) {
+  console.error("Failed!", error);
+});
+```
+
+### Stuff I'll cover later (hopefully)
+
+- Symbols
+- Generators
+- Destructuring
+- Proxies
