@@ -20,7 +20,7 @@ interface LayoutProps {
 export default function PostLayout({ content, next, prev, children }: LayoutProps) {
   const [loadComments, setLoadComments] = useState(false)
 
-  const { path, slug, date, title } = content
+  const { path, slug, date, title, readingTime } = content
 
   return (
     <SectionContainer>
@@ -41,6 +41,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
+              <div>{readingTime.text}</div>
             </div>
           </header>
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0">

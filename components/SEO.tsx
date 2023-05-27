@@ -3,16 +3,13 @@ import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog, Authors } from 'contentlayer/generated'
+import { Article, ImageObject, WithContext } from 'schema-dts'
+
 interface CommonSEOProps {
   title: string
   description: string
   ogType: string
-  ogImage:
-    | string
-    | {
-        '@type': string
-        url: string
-      }[]
+  ogImage: string | ImageObject[]
   twImage: string
   canonicalUrl?: string
 }
@@ -37,7 +34,9 @@ const CommonSEO = ({
       <meta property="og:description" content={description} />
       <meta property="og:title" content={title} />
       {Array.isArray(ogImage) ? (
-        ogImage.map(({ url }) => <meta property="og:image" content={url} key={url} />)
+        ogImage.map(({ url }) => (
+          <meta property="og:image" content={url as string} key={url as string} />
+        ))
       ) : (
         <meta property="og:image" content={ogImage} key={ogImage} />
       )}
@@ -122,7 +121,7 @@ export const BlogSEO = ({
       ? [images]
       : images
 
-  const featuredImages = imagesArr.map((img) => {
+  const featuredImages = imagesArr.map((img): ImageObject => {
     return {
       '@type': 'ImageObject',
       url: img.includes('http') ? img : siteMetadata.siteUrl + img,
@@ -144,7 +143,7 @@ export const BlogSEO = ({
     }
   }
 
-  const structuredData = {
+  const structuredData: WithContext<Article> = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     mainEntityOfPage: {
@@ -157,12 +156,8 @@ export const BlogSEO = ({
     dateModified: modifiedAt,
     author: authorList,
     publisher: {
-      '@type': 'Organization',
+      '@type': 'Person',
       name: siteMetadata.author,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteMetadata.siteUrl}${siteMetadata.siteLogo}`,
-      },
     },
     description: summary,
   }
@@ -176,7 +171,7 @@ export const BlogSEO = ({
         description={summary}
         ogType="article"
         ogImage={featuredImages}
-        twImage={twImageUrl}
+        twImage={twImageUrl as string}
         canonicalUrl={canonicalUrl}
       />
       <Head>
