@@ -2,5 +2,8 @@
     "search.exclude": {
         "**/.contentlayer": true,
         "**/.next": true
-    }
+    },
+    "files.associations": {
+        "*.mdx": "markdown"
+    },
 }
