@@ -5,8 +5,10 @@
   "scripts": {
     "start": "next dev",
     "dev": "cross-env INIT_CWD=$PWD next dev",
+    "dev:ssl": "NODE_EXTRA_CA_CERTS=\"$(cat ./certs/.capath)\" node scripts/create-local-server.js",
     "build": "cross-env INIT_CWD=$PWD next build && cross-env NODE_OPTIONS='--experimental-json-modules' node -r esbuild-register ./scripts/postbuild.mjs",
     "serve": "next start",
+    "ssl:setup": "node scripts/create-ssl-certs.js",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts"
   },
@@ -48,8 +50,10 @@
     "@types/react": "^18.0.18",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
+    "chalk": "^5.2.0",
     "cross-env": "^7.0.3",
     "dedent": "^0.7.0",
+    "devcert": "^1.2.2",
     "esbuild-register": "3.4.2",
     "eslint": "^8.23.0",
     "eslint-config-next": "13.1.6",
