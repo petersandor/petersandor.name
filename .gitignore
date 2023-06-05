@@ -13,6 +13,7 @@
 /out/
 public/sitemap.xml
 .vercel
+/certs/
 
 # production
 /build

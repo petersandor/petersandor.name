@@ -1,4 +1,6 @@
 {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
     "search.exclude": {
         "**/.contentlayer": true,
         "**/.next": true
@@ -6,4 +8,8 @@
     "files.associations": {
         "*.mdx": "markdown"
     },
+    "prettier.configPath": "./prettier.config.js",
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }
