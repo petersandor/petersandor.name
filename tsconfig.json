@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
+      "@/hooks/*": ["hooks/*"],
       "@/data/*": ["data/*"],
       "@/layouts/*": ["layouts/*"],
       "@/lib/*": ["lib/*"],
@@ -28,7 +29,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "types": ["@webgpu/types"]
   },
   "include": [
     "next-env.d.ts",

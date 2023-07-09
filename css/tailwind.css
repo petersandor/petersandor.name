@@ -31,3 +31,7 @@ input:-webkit-autofill:focus {
 #comment iframe {
   @apply w-full;
 }
+
+.twitter-tweet iframe {
+  @apply rounded-xl;
+}
