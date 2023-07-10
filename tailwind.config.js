@@ -18,6 +18,23 @@ module.exports = {
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
+      screens: {
+        '-2xl': {
+          max: '1535px',
+        },
+        '-xl': {
+          max: '1279px',
+        },
+        '-lg': {
+          max: '1023px',
+        },
+        '-md': {
+          max: '767px',
+        },
+        '-sm': {
+          max: '639px',
+        },
+      },
       spacing: {
         '9/16': '56.25%',
       },

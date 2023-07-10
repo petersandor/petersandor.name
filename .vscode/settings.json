@@ -9,6 +9,7 @@
         "*.mdx": "markdown"
     },
     "prettier.configPath": "./prettier.config.js",
+    "prettier.prettierPath": "./node_modules/prettier",
     "[javascript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
