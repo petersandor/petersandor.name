@@ -19,7 +19,7 @@ export default function ThemedTweet(props: Props) {
 
     // const themeCheckInterval = setInterval(() => {
     const currentTheme = window.localStorage.getItem('theme') as ThemeToken
-    setThemeFromStorage(currentTheme)
+    setThemeFromStorage(currentTheme ?? 'dark')
     // }, 500)
 
     // return () => {

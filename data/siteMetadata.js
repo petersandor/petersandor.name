@@ -2,7 +2,7 @@
 
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Peter Šándor\'s personal blog',
+  title: "Peter Šándor's personal blog",
   author: 'Peter Šándor',
   headerTitle: 'Peter Šándor',
   description: '',
@@ -24,7 +24,7 @@ const siteMetadata = {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
     // supports plausible, simpleAnalytics, umami or googleAnalytics
-    plausibleDataDomain: 'petersandor.name', // e.g. neon-moxie-818ae3.netlify.app
+    // plausibleDataDomain: 'petersandor.name', // e.g. neon-moxie-818ae3.netlify.app
     simpleAnalytics: false, // true or false
     umamiWebsiteId: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
     posthogProjectApiKey: '', // e.g. AhnJK8392ndPOav87as450xd
