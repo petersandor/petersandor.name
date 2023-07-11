@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .text-shadow-xs {
+    text-shadow: 1px 1px 0 rgba(var(--backgroundPrimary)), -1px 1px 0 rgba(var(--backgroundPrimary)),
+      1px -1px 0 rgba(var(--backgroundPrimary)), -1px -1px 0 rgba(var(--backgroundPrimary));
+  }
+
+  .text-shadow {
+    text-shadow: 2px 2px 0 rgba(var(--backgroundPrimary)), -2px 2px 0 rgba(var(--backgroundPrimary)),
+      2px -2px 0 rgba(var(--backgroundPrimary)), -2px -2px 0 rgba(var(--backgroundPrimary));
+  }
+
+  .text-shadow-xl {
+    text-shadow: 4px 4px 0 rgba(var(--backgroundPrimary)), -4px 4px 0 rgba(var(--backgroundPrimary)),
+      4px -4px 0 rgba(var(--backgroundPrimary)), -4px -4px 0 rgba(var(--backgroundPrimary));
+  }
+
+  .text-shadow-none {
+    text-shadow: none;
+  }
+}
+
 .task-list-item::before {
   @apply hidden;
 }
@@ -34,4 +55,10 @@ input:-webkit-autofill:focus {
 
 .twitter-tweet iframe {
   @apply rounded-xl;
+}
+
+body[data-page$='404'] .main-section {
+  background-image: url(/static/images/404.gif);
+  background-repeat: no-repeat;
+  background-position: top 4rem left;
 }
