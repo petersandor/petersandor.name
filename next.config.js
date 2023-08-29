@@ -63,7 +63,13 @@ module.exports = () => {
     reactStrictMode: false,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     eslint: {
-      dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
+      dirs: ['app', 'components', 'layouts', 'scripts'],
+    },
+    images: {
+      domains: ['picsum.photos'],
+    },
+    experimental: {
+      appDir: true,
     },
     async headers() {
       return [

@@ -18,7 +18,6 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
-      "@/hooks/*": ["hooks/*"],
       "@/data/*": ["data/*"],
       "@/layouts/*": ["layouts/*"],
       "@/lib/*": ["lib/*"],
@@ -35,8 +34,10 @@
   "include": [
     "next-env.d.ts",
     "**/*.js",
+    "**/*.mjs",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.json",
     ".contentlayer/generated",
     ".contentlayer/generated/**/*.json",
     ".next/types/**/*.ts"

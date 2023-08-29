@@ -2,20 +2,17 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 
-// ../node_modules/pliny/dist/**/*.mjs is needed for monorepo setup
 /** @type {import("tailwindcss/types").Config } */
 module.exports = {
   content: [
-    '../node_modules/pliny/**/*.{js,ts,tsx}',
-    './node_modules/pliny/**/*.{js,ts,tsx}',
+    './node_modules/pliny/**/*.js',
     './app/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,tsx}',
     './components/**/*.{js,ts,tsx}',
     './layouts/**/*.{js,ts,tsx}',
-    './lib/**/*.{js,ts,tsx}',
     './data/**/*.mdx',
   ],
-  darkMode: ['class', '[data-theme="dark"]'],
+  darkMode: ['class', '[data-theme="invert"]'],
   theme: {
     extend: {
       screens: {
@@ -51,7 +48,7 @@ module.exports = {
         primary: colors.teal,
         gray: colors.neutral,
       },
-      typography: (theme) => ({
+      typography: ({ theme }) => ({
         DEFAULT: {
           css: {
             color: theme('colors.gray.700'),
@@ -120,7 +117,7 @@ module.exports = {
             },
           },
         },
-        dark: {
+        invert: {
           css: {
             color: theme('colors.gray.300'),
             a: {

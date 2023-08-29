@@ -1,12 +1,11 @@
-import { useState, ReactNode } from 'react'
-import { Comments } from 'pliny/comments'
+import { ReactNode } from 'react'
 import { formatDate } from 'pliny/utils/formatDate'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
+import Comments from '@/components/Comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
-import { BlogSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
@@ -18,13 +17,10 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, next, prev, children }: LayoutProps) {
-  const [loadComments, setLoadComments] = useState(false)
-
   const { path, slug, date, title, readingTime } = content
 
   return (
     <SectionContainer>
-      <BlogSEO url={`${siteMetadata.siteUrl}/${path}`} {...content} />
       <ScrollTopAndComment />
       <article>
         <div>
@@ -50,15 +46,12 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
             </div>
             {siteMetadata.comments && (
               <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300" id="comment">
-                {!loadComments && (
-                  <button onClick={() => setLoadComments(true)}>Load Comments</button>
-                )}
-                {loadComments && <Comments commentsConfig={siteMetadata.comments} slug={slug} />}
+                <Comments slug={slug} />
               </div>
             )}
             <footer>
               <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
-                {prev && (
+                {prev && prev.path && (
                   <div className="pt-4 xl:pt-8">
                     <Link
                       href={`/${prev.path}`}
@@ -69,7 +62,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
                     </Link>
                   </div>
                 )}
-                {next && (
+                {next && next.path && (
                   <div className="pt-4 xl:pt-8">
                     <Link
                       href={`/${next.path}`}
