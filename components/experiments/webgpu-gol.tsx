@@ -3,16 +3,18 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { PlayIcon, PauseIcon, ArrowPathIcon } from '@heroicons/react/24/solid'
 import { useDebounce } from 'use-debounce'
+import { withErrorBoundary } from 'react-error-boundary'
 
 interface Props {
   defaultGridSize?: number
 }
 
-export default function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
+function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>()
   const pauseRef = useRef(false)
   const [isPaused, setIsPaused] = useState(false)
   const [resetCount, setResetCount] = useState(0)
+  const [error, setError] = useState('')
   const [gridSize, setGridSize] = useState(defaultGridSize)
   const [gridSizeDebounced] = useDebounce(gridSize, 200)
 
@@ -28,7 +30,13 @@ export default function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
 
     const initGOL = async () => {
       const adapter = await entry.requestAdapter()
-      const device = (deviceRef = await adapter.requestDevice())
+      const device = (deviceRef = await adapter?.requestDevice())
+
+      if (!adapter) {
+        setError('No adapter available')
+
+        return Promise.reject()
+      }
 
       const canvas = canvasRef.current
 
@@ -382,6 +390,10 @@ export default function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
     setIsPaused(pauseRef.current)
   }, [pauseRef, setIsPaused])
 
+  if (error) {
+    throw error
+  }
+
   return (
     <>
       <div className="flex justify-center">
@@ -430,3 +442,28 @@ export default function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
     </>
   )
 }
+
+export default withErrorBoundary(WebGPUGameOfLife, {
+  fallback: (
+    <div className="alert alert-error">
+      <svg
+        width="48"
+        height="48"
+        viewBox="0 0 48 48"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM24 26C22.9 26 22 25.1 22 24V16C22 14.9 22.9 14 24 14C25.1 14 26 14.9 26 16V24C26 25.1 25.1 26 24 26ZM26 34H22V30H26V34Z"
+          fill="#E92C2C"
+        />
+      </svg>
+      <div className="flex flex-col">
+        <span>Error</span>
+        <span className="text-content2">Your browser/device doesn't support WebGPU</span>
+      </div>
+    </div>
+  ),
+})
