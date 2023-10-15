@@ -1,19 +1,7 @@
 import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 
-import '@fontsource/lato/100.css'
-import '@fontsource/lato/300.css'
-import '@fontsource/lato/400.css'
-import '@fontsource/lato/700.css'
-import '@fontsource/lato/900.css'
-import '@fontsource/lato/100-italic.css'
-import '@fontsource/lato/300-italic.css'
-import '@fontsource/lato/400-italic.css'
-import '@fontsource/lato/700-italic.css'
-import '@fontsource/lato/900-italic.css'
-
-
-import { Space_Grotesk } from 'next/font/google'
+import { Lato } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
@@ -23,10 +11,11 @@ import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 
-const space_grotesk = Space_Grotesk({
+const lato = Lato({
   subsets: ['latin'],
+  weight: ['100', '300', '400', '700', '900'],
   display: 'swap',
-  variable: '--font-space-grotesk',
+  variable: '--font-lato',
 })
 
 export const metadata: Metadata = {
@@ -73,10 +62,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={`${lato.variable} scroll-smooth`}
       suppressHydrationWarning
     >
-      <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
       <link rel="manifest" href="/static/favicons/site.webmanifest" />
@@ -89,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
-            <div className="flex h-screen flex-col justify-between font-sans">
+            <div className="flex flex-col justify-between font-sans">
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
                 <Header />
                 <main className="mb-auto">{children}</main>

@@ -50,3 +50,17 @@ input:-webkit-autofill:focus {
     background-color 600000s 0s,
     color 600000s 0s;
 }
+
+#comment iframe {
+  @apply w-full;
+}
+
+.twitter-tweet iframe {
+  @apply rounded-xl;
+}
+
+.not-found {
+  background-image: url(/static/images/404.gif);
+  background-repeat: no-repeat;
+  background-position: left;
+}

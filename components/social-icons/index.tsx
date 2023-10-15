@@ -13,8 +13,8 @@ const components = {
 type SocialIconProps = {
   kind: keyof typeof components
   href: string | undefined
-  size?: number,
-  disabled: boolean
+  size?: number
+  disabled?: boolean
 }
 
 const SocialIcon = ({ kind, href, size = 8, disabled = false }: SocialIconProps) => {
@@ -22,8 +22,11 @@ const SocialIcon = ({ kind, href, size = 8, disabled = false }: SocialIconProps)
     return null
 
   const SocialSvg = components[kind]
+  const defaultSvgClassNames = `fill-current text-gray-700 dark:text-gray-200  h-${size} w-${size}`
 
-  return (
+  return disabled ? (
+    <SocialSvg className={`${defaultSvgClassNames} opacity-25`} />
+  ) : (
     <a
       className="text-sm text-gray-500 transition hover:text-gray-600"
       target="_blank"
@@ -32,7 +35,7 @@ const SocialIcon = ({ kind, href, size = 8, disabled = false }: SocialIconProps)
     >
       <span className="sr-only">{kind}</span>
       <SocialSvg
-        className={`fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 h-${size} w-${size}`}
+        className={`${defaultSvgClassNames} hover:text-primary-500 dark:hover:text-primary-400`}
       />
     </a>
   )
