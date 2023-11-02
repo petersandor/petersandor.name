@@ -1,11 +1,9 @@
-// @ts-check
-
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
   title: "Peter Šándor's personal blog",
   author: 'Peter Šándor',
   headerTitle: 'Peter Šándor',
-  description: '',
+  description: "Peter Šándor's personal blog",
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://petersandor.name',
@@ -13,9 +11,10 @@ const siteMetadata = {
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',
-  email: 'p.sandor@outlook.sk',
-  github: 'https://github.com/petersandor',
-  twitter: 'https://twitter.com/petesandor',
+  mastodon: '',
+  email: 'address@yoursite.com',
+  github: 'https://github.com',
+  twitter: 'https://twitter.com/Twitter',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com/channel/UCults3r7IDmkijJ3ppexX7A',
   linkedin: 'https://linkedin.com/in/psandor',
@@ -23,12 +22,21 @@ const siteMetadata = {
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
-    // supports plausible, simpleAnalytics, umami or googleAnalytics
-    // plausibleDataDomain: 'petersandor.name', // e.g. neon-moxie-818ae3.netlify.app
-    simpleAnalytics: false, // true or false
-    umamiWebsiteId: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
-    posthogProjectApiKey: '', // e.g. AhnJK8392ndPOav87as450xd
-    googleAnalyticsId: 'G-J4NSYWG314', // e.g. UA-000000-2 or G-XXXXXXX
+    // supports Plausible, Simple Analytics, Umami, Posthog or Google Analytics.
+    // umamiAnalytics: {
+      // We use an env variable for this site to avoid other users cloning our analytics ID
+    //  umamiWebsiteId: process.env.NEXT_UMAMI_ID, // e.g. 123e4567-e89b-12d3-a456-426614174000
+    // },
+    // plausibleAnalytics: {
+    //   plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
+    // },
+    // simpleAnalytics: {},
+    // posthogAnalytics: {
+    //   posthogProjectApiKey: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
+    // },
+    googleAnalytics: {
+       googleAnalyticsId: 'G-J4NSYWG314', // e.g. G-XXXXXXX
+    },
   },
   newsletter: {
     // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
@@ -65,20 +73,20 @@ const siteMetadata = {
       lang: 'en',
     },
   },
-  // search: {
-  //   provider: 'kbar', // kbar or algolia
-  //   kbarConfig: {
-  //     searchDocumentsPath: 'search.json', // path to load documents to search
-  //   },
-  //   provider: 'algolia',
-  //   algoliaConfig: {
-  //     // The application ID provided by Algolia
-  //     appId: 'R2IYF7ETH7',
-  //     // Public API key: it is safe to commit it
-  //     apiKey: '599cec31baffa4868cae4e79f180729b',
-  //     indexName: 'docsearch',
-  //   },
-  // },
+  search: {
+    provider: 'kbar', // kbar or algolia
+    kbarConfig: {
+      searchDocumentsPath: 'search.json', // path to load documents to search
+    },
+    // provider: 'algolia',
+    // algoliaConfig: {
+    //   // The application ID provided by Algolia
+    //   appId: 'R2IYF7ETH7',
+    //   // Public API key: it is safe to commit it
+    //   apiKey: '599cec31baffa4868cae4e79f180729b',
+    //   indexName: 'docsearch',
+    // },
+  },
 }
 
 module.exports = siteMetadata

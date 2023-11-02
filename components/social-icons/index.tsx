@@ -1,11 +1,4 @@
-import Mail from './mail.svg'
-import Github from './github.svg'
-import Facebook from './facebook.svg'
-import Youtube from './youtube.svg'
-import Linkedin from './linkedin.svg'
-import Twitter from './twitter.svg'
-
-// Icons taken from: https://simpleicons.org/
+import { Mail, Github, Facebook, Youtube, Linkedin, Twitter, Mastodon } from './icons'
 
 const components = {
   mail: Mail,
@@ -14,19 +7,25 @@ const components = {
   youtube: Youtube,
   linkedin: Linkedin,
   twitter: Twitter,
+  mastodon: Mastodon,
 }
 
-const defaultSvgClassNames = 'fill-current text-gray-700 dark:text-gray-200'
+type SocialIconProps = {
+  kind: keyof typeof components
+  href: string | undefined
+  size?: number
+  disabled?: boolean
+}
 
-const SocialIcon = ({ kind, href, disabled = false, size = 8 }) => {
+const SocialIcon = ({ kind, href, size = 8, disabled = false }: SocialIconProps) => {
   if (!href || (kind === 'mail' && !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href)))
     return null
 
   const SocialSvg = components[kind]
-  const SvgSizeClassNames = `h-${size} w-${size}`
+  const defaultSvgClassNames = `fill-current text-gray-700 dark:text-gray-200  h-${size} w-${size}`
 
   return disabled ? (
-    <SocialSvg className={`${defaultSvgClassNames} ${SvgSizeClassNames} opacity-25`} />
+    <SocialSvg className={`${defaultSvgClassNames} opacity-25`} />
   ) : (
     <a
       className="text-sm text-gray-500 transition hover:text-gray-600"
@@ -36,7 +35,7 @@ const SocialIcon = ({ kind, href, disabled = false, size = 8 }) => {
     >
       <span className="sr-only">{kind}</span>
       <SocialSvg
-        className={`${defaultSvgClassNames} hover:text-blue-500 dark:hover:text-blue-400 ${SvgSizeClassNames}`}
+        className={`${defaultSvgClassNames} hover:text-primary-500 dark:hover:text-primary-400`}
       />
     </a>
   )

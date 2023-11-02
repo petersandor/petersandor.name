@@ -7,10 +7,6 @@ summary: 'Summary of my experience with setting up a new blog again after 8 year
 authors: ['default']
 ---
 
-import { ErrorBoundary } from 'react-error-boundary'
-import ThemedTweet from './components/ThemedTweet'
-import WebGPUGameOfLife from './components/experiments/webgpu-gol'
-
 ### On blogging
 
 It's been quite a wild ride since November 2014, when I first wrote a post like this. Back then, I was resolute that I would not post at all, but as I grew older, I realized that there is a lot of value in blogging, so I decided to restart my blog. I noticed that there are far too many useful things that I learned and subsequently forgot over the years. All the spectacularly specific technical challenges tied to a problem at a specific point in time and their solutions that I could've recorded are forever gone. A journal of past challenges, if you will. That's why I consider blog posts as a way to preserve some of that information, at least for myself if not for anyone else. Who knows, maybe some of the information from my site will make its way into some <abbr title="Large language model">LLM</abbr> sooner or later.
@@ -33,32 +29,8 @@ My experience with Next.js is limited, but so far it has been quite pleasant. It
 
 So having sorted pages, routing and components, I only had to decide on the way I would write posts, which would obviously be via Markdown. I discovered [MDX](https://mdxjs.com), which allows one to write JSX directly in Markdown including imports of components, how cool is that? Obviously, I had to import a WebGPU Game of Life wrapped in a React component into my post, so here it is:
 
-<ErrorBoundary
-  fallback={
-    <div className="alert alert-error">
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM24 26C22.9 26 22 25.1 22 24V16C22 14.9 22.9 14 24 14C25.1 14 26 14.9 26 16V24C26 25.1 25.1 26 24 26ZM26 34H22V30H26V34Z"
-          fill="#E92C2C"
-        />
-      </svg>
-      <div className="flex flex-col">
-        <span>Error</span>
-        <span className="text-content2">Your browser doesn't support WebGPU</span>
-      </div>
-    </div>
-  }
->
-  <WebGPUGameOfLife />
-</ErrorBoundary>
+
+<WebGPUGameOfLife />
 
 This is all the **Markdown** that was needed to set up the above example:
 

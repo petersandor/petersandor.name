@@ -46,7 +46,9 @@
 /* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
-  transition: background-color 600000s 0s, color 600000s 0s;
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s;
 }
 
 #comment iframe {
@@ -57,8 +59,8 @@ input:-webkit-autofill:focus {
   @apply rounded-xl;
 }
 
-body[data-page$='404'] .main-section {
+.not-found {
   background-image: url(/static/images/404.gif);
   background-repeat: no-repeat;
-  background-position: top 4rem left;
+  background-position: left;
 }
