@@ -13,11 +13,13 @@ const siteMetadata = {
   socialBanner: '/static/images/twitter-card.png',
   mastodon: '',
   email: 'p.sandor@outlook.sk',
-  github: 'https://github.com',
-  twitter: 'https://twitter.com/Twitter',
+  github: 'https://github.com/petersandor',
+  twitter: 'https://twitter.com/petesandor',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com/channel/UCults3r7IDmkijJ3ppexX7A',
   linkedin: 'https://linkedin.com/in/psandor',
+  threads: 'https://www.threads.net',
+  instagram: 'https://www.instagram.com',
   locale: 'en-US',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
