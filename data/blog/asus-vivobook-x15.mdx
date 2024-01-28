@@ -1,6 +1,7 @@
 ---
 title: 'Asus Vivobook X15'
 date: 2023-11-02T18:11:44Z
+lastmod: 2024-01-28T23:50:48Z
 tags: ['intel me', 'security', 'firmware', 'asus', 'vivobook', 'hardware', 'workstation', 'laptop', 'desktop']
 draft: false
 summary: 'A brief review of my current workstation'
@@ -133,6 +134,17 @@ I ran the Intel CSME tool again and it still reported that the machine is vulner
 There are numerous initiatives (including Google's[^5]) working on disabling and removing Intel ME. You can try flashing custom BIOS like [coreboot](https://coreboot.org) or [libreboot](https://libreboot.org) with disabled Intel ME firmware blobs, but keep in mind that not every motherboard is supported. Back in 2018, I flashed locally built **coreboot** binary with Raspberry Pi and [flashrom](https://flashrom.org) on my ThinkPad T420 where I now run [Qubes OS](https://www.qubes-os.org) which enables further mitigations on known vulnerabilities by disabling certain CPU features.
 
 You can also try to switch to AMD, although there's an equivalent of Intel ME which is called [AMD PSP](https://en.wikipedia.org/wiki/AMD_Platform_Security_Processor) (albeit less powerful/vulnerable).
+
+### Update (28-01-2024)
+
+Looks like this issue has been fixed in BIOS version 306. I've updated my laptop and the latest Intel CSME tool (version 9.0.0.3) no longer reports any vulnerabilities.
+
+<div className="flex flex-col justify-center items-center">
+  <div>
+    ![Intel® Converged Security and Management Engine Version Detection Tool scan results](/static/images/hardware/intel_csme_scan_result_not_vulnerable.png)
+  </div>
+  <div className="italic text-xs">"This system is not vulnerable"</div>
+</div>
 
 [^1]: https://www.youtube.com/watch?v=084Ez5EXWMU "Intel Iris Xe Gaming (31 games)"
 [^2]: https://www.linkedin.com/pulse/intel-iris-xe-graphics-mystery-conrad-h-blickenstorfer "The Intel Iris Xe Graphics mystery"
