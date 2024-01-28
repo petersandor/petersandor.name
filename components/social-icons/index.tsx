@@ -4,10 +4,10 @@ import {
   Facebook,
   Youtube,
   Linkedin,
-  Twitter,
   Mastodon,
   Threads,
   Instagram,
+  TwitterNew,
 } from './icons'
 
 const components = {
@@ -16,7 +16,7 @@ const components = {
   facebook: Facebook,
   youtube: Youtube,
   linkedin: Linkedin,
-  twitter: Twitter,
+  twitter: TwitterNew,
   mastodon: Mastodon,
   threads: Threads,
   instagram: Instagram,
