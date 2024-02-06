@@ -75,6 +75,25 @@ function createSearchIndex(allBlogs) {
   }
 }
 
+/**
+ * Create a JSON file with the date of the last blog post
+ * Used in footer to automatically update copyright date
+ * @param allBlogs
+ */
+function createLastPostedTimestamp(allBlogs) {
+  const lastPostedTimestamp = allBlogs.reduce((acc, curr) => {
+    if (new Date(curr.date).getTime() > acc) {
+      return curr.date
+    }
+    return acc
+  }, 0)
+
+  writeFileSync(
+    './app/last-post-timestamp.json',
+    JSON.stringify({ lastPostDate: lastPostedTimestamp })
+  )
+}
+
 export const Blog = defineDocumentType(() => ({
   name: 'Blog',
   filePathPattern: 'blog/**/*.mdx',
@@ -152,6 +171,8 @@ export default makeSource({
   },
   onSuccess: async (importData) => {
     const { allBlogs } = await importData()
+
+    createLastPostedTimestamp(allBlogs)
     createTagCount(allBlogs)
     createSearchIndex(allBlogs)
   },

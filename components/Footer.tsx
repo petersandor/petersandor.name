@@ -2,6 +2,8 @@ import Link from './Link'
 import siteMetadata from '@/data/siteMetadata'
 import SocialIcon from '@/components/social-icons'
 
+import lastPostDateJson from 'app/last-post-timestamp.json'
+
 export default function Footer() {
   return (
     <footer>
@@ -19,7 +21,7 @@ export default function Footer() {
         <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <div>{siteMetadata.author}</div>
           <div>{` • `}</div>
-          <div>{`© ${new Date().getFullYear()}`}</div>
+          <div>{`© 2014 - ${new Date(lastPostDateJson.lastPostDate).getFullYear()}`}</div>
         </div>
       </div>
     </footer>
