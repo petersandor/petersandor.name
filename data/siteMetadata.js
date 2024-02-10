@@ -8,6 +8,7 @@ const siteMetadata = {
   theme: 'system', // system, dark or light
   siteUrl: 'https://petersandor.name',
   siteRepo: 'https://github.com/petersandor/petersandor.name',
+  siteRepoMainBranchName: 'master',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',

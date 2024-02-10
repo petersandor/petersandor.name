@@ -2,9 +2,12 @@
 
 import siteMetadata from '@/data/siteMetadata'
 import { useEffect, useState } from 'react'
+import { Edit } from 'react-feather'
 
-const ScrollTopAndComment = () => {
+const ScrollTopAndComment = ({ path }: { path: string }) => {
   const [show, setShow] = useState(false)
+
+  const editUrl = `${siteMetadata.siteRepo}/edit/${siteMetadata.siteRepoMainBranchName}/data/${path}.mdx`
 
   useEffect(() => {
     const handleWindowScroll = () => {
@@ -26,6 +29,13 @@ const ScrollTopAndComment = () => {
     <div
       className={`fixed bottom-8 right-8 hidden flex-col gap-3 ${show ? 'md:flex' : 'md:hidden'}`}
     >
+      <a
+        aria-label="Edit on GitHub"
+        href={editUrl}
+        className="rounded-full bg-gray-200 p-2 text-gray-500 transition-all hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600"
+      >
+        <Edit size="20" />
+      </a>
       {siteMetadata.comments?.provider && (
         <button
           aria-label="Scroll To Comment"
