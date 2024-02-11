@@ -1,7 +1,7 @@
 import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 
-import { Lato } from 'next/font/google'
+import { JetBrains_Mono } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
@@ -11,11 +11,11 @@ import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 
-const lato = Lato({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['100', '300', '400', '700', '900'],
+  weight: ['100', '300', '400', '700', '800'],
   display: 'swap',
-  variable: '--font-lato',
+  variable: '--font-jetbrains-mono',
 })
 
 export const metadata: Metadata = {
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${lato.variable} scroll-smooth`}
+      className={`${jetbrainsMono.variable} scroll-smooth font-mono`}
       suppressHydrationWarning
     >
       <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png" />
@@ -78,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
-            <div className="flex flex-col justify-between font-sans">
+            <div className="flex flex-col justify-between">
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
                 <Header />
                 <main className="mb-auto">{children}</main>

@@ -42,7 +42,7 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['var(--font-lato)', ...fontFamily.sans],
+        mono: ['var(--font-jetbrains-mono)'],
       },
       colors: {
         primary: colors.teal,
