@@ -6,6 +6,7 @@ import GitHubCalendar from 'react-github-calendar'
 
 import Image from './Image'
 import CustomLink from './Link'
+import TableWrapper from './TableWrapper'
 import ThemedTweet from './ThemedTweet'
 import WebGPUGameOfLife from './experiments/webgpu-gol'
 
@@ -14,6 +15,7 @@ export const components: MDXComponents = {
   TOCInline,
   a: CustomLink,
   pre: Pre,
+  table: TableWrapper,
   BlogNewsletterForm,
   ThemedTweet,
   WebGPUGameOfLife,

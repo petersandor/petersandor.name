@@ -15,7 +15,8 @@ const siteMetadata = {
   mastodon: '',
   email: 'p.sandor@outlook.sk',
   github: 'https://github.com/petersandor',
-  twitter: 'https://twitter.com/petesandor',
+  x: 'https://twitter.com/petesandor',
+  // twitter: 'https://twitter.com/petesandor',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com/channel/UCults3r7IDmkijJ3ppexX7A',
   linkedin: 'https://linkedin.com/in/psandor',
@@ -23,6 +24,8 @@ const siteMetadata = {
   instagram: 'https://www.instagram.com',
   rss: '/feed.xml',
   locale: 'en-US',
+  // set to true if you want a navbar fixed to the top
+  stickyNav: true,
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
@@ -43,7 +46,7 @@ const siteMetadata = {
     },
   },
   newsletter: {
-    // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
+    // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus, beehive
     // Please add your .env file and modify it according to your selection
     provider: 'buttondown',
   },
@@ -80,7 +83,7 @@ const siteMetadata = {
   search: {
     provider: 'kbar', // kbar or algolia
     kbarConfig: {
-      searchDocumentsPath: 'search.json', // path to load documents to search
+      searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`, // path to load documents to search
     },
     // provider: 'algolia',
     // algoliaConfig: {
