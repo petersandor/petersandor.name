@@ -5,7 +5,7 @@
   "scripts": {
     "start": "next dev",
     "dev": "cross-env INIT_CWD=$PWD next dev",
-    "dev:ssl": "NODE_EXTRA_CA_CERTS=\"$(cat ./certs/.capath)\" node scripts/create-local-server.js",
+    "dev:ssl": "set NODE_EXTRA_CA_CERTS=\"$(cat ./certs/.capath)\" node scripts/create-local-server.js",
     "build": "cross-env INIT_CWD=$PWD next build && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
     "serve": "next start",
     "ssl:setup": "node scripts/create-ssl-certs.js",
@@ -17,6 +17,7 @@
   "dependencies": {
     "@headlessui/react": "2.2.0",
     "@heroicons/react": "^2.0.18",
+    "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@next/bundle-analyzer": "15.0.2",
     "@tailwindcss/forms": "^0.5.9",
@@ -41,6 +42,7 @@
     "react-error-boundary": "^4.0.10",
     "react-feather": "^2.0.10",
     "react-github-calendar": "^4.1.1",
+    "react-tweet": "^3.2.1",
     "reading-time": "1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-citation": "^2.0.0",
@@ -94,6 +96,9 @@
   },
   "overrides": {
     "@mdx-js/react": {
+      "react": "$react"
+    },
+    "@mdx-js/loader": {
       "react": "$react"
     },
     "mdx-embed": {

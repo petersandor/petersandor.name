@@ -88,10 +88,6 @@ input:-webkit-autofill:focus {
   @apply w-full;
 }
 
-.twitter-tweet iframe {
-  @apply rounded-xl;
-}
-
 .not-found {
   background-image: url(/static/images/404.gif);
   background-repeat: no-repeat;
