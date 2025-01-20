@@ -88,7 +88,7 @@ async function loadLocalCalendarData(username: string, year: Year): Promise<ApiR
       )
     )
 
-    console.log('Loaded GitHub activity data from local file:', data)
+    console.log('Successfully loaded GitHub activity data from local file')
   } catch (error) {
     throw Error(`Unable to load GitHub activity file: ${error}`)
   }

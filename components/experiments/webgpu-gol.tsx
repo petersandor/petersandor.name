@@ -419,7 +419,7 @@ function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
             className="btn"
             onClick={() => {
               setResetCount(resetCount + 1)
-              isPaused && playPauseRendering()
+              if (isPaused) playPauseRendering()
             }}
           >
             <ArrowPathIcon className="mr-4 h-6 w-6" />

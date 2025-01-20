@@ -1,21 +1,20 @@
-const fs = require('fs')
-const path = require('path')
-const inquirer = require('inquirer')
-const dedent = require('dedent')
+import { readdirSync, existsSync, mkdirSync, writeFile } from 'fs'
+import { join, parse } from 'path'
+import { prompt } from 'inquirer'
+import dedent from 'dedent'
 
 const root = process.cwd()
 
 const getAuthors = () => {
-  const authorPath = path.join(root, 'data', 'authors')
-  const authorList = fs.readdirSync(authorPath).map((filename) => path.parse(filename).name)
+  const authorPath = join(root, 'data', 'authors')
+  const authorList = readdirSync(authorPath).map((filename) => parse(filename).name)
   return authorList
 }
 
 const getLayouts = () => {
-  const layoutPath = path.join(root, 'layouts')
-  const layoutList = fs
-    .readdirSync(layoutPath)
-    .map((filename) => path.parse(filename).name)
+  const layoutPath = join(root, 'layouts')
+  const layoutList = readdirSync(layoutPath)
+    .map((filename) => parse(filename).name)
     .filter((file) => file.toLowerCase().includes('post'))
   return layoutList
 }
@@ -52,53 +51,52 @@ const genFrontMatter = (answers) => {
   return frontMatter
 }
 
-inquirer
-  .prompt([
-    {
-      name: 'title',
-      message: 'Enter post title:',
-      type: 'input',
-    },
-    {
-      name: 'extension',
-      message: 'Choose post extension:',
-      type: 'list',
-      choices: ['mdx', 'md'],
-    },
-    {
-      name: 'authors',
-      message: 'Choose authors:',
-      type: 'checkbox',
-      choices: getAuthors,
-    },
-    {
-      name: 'summary',
-      message: 'Enter post summary:',
-      type: 'input',
-    },
-    {
-      name: 'draft',
-      message: 'Set post as draft?',
-      type: 'list',
-      choices: ['yes', 'no'],
-    },
-    {
-      name: 'tags',
-      message: 'Any Tags? Separate them with , or leave empty if no tags.',
-      type: 'input',
-    },
-    {
-      name: 'layout',
-      message: 'Select layout',
-      type: 'list',
-      choices: getLayouts,
-    },
-    {
-      name: 'canonicalUrl',
-      message: 'Enter canonical url:',
-      type: 'input',
-    },
-  ])
+prompt([
+  {
+    name: 'title',
+    message: 'Enter post title:',
+    type: 'input',
+  },
+  {
+    name: 'extension',
+    message: 'Choose post extension:',
+    type: 'list',
+    choices: ['mdx', 'md'],
+  },
+  {
+    name: 'authors',
+    message: 'Choose authors:',
+    type: 'checkbox',
+    choices: getAuthors,
+  },
+  {
+    name: 'summary',
+    message: 'Enter post summary:',
+    type: 'input',
+  },
+  {
+    name: 'draft',
+    message: 'Set post as draft?',
+    type: 'list',
+    choices: ['yes', 'no'],
+  },
+  {
+    name: 'tags',
+    message: 'Any Tags? Separate them with , or leave empty if no tags.',
+    type: 'input',
+  },
+  {
+    name: 'layout',
+    message: 'Select layout',
+    type: 'list',
+    choices: getLayouts,
+  },
+  {
+    name: 'canonicalUrl',
+    message: 'Enter canonical url:',
+    type: 'input',
+  },
+])
   .then((answers) => {
     // Remove special characters and replace space with -
     const fileName = answers.title
@@ -107,11 +105,11 @@ inquirer
       .replace(/ /g, '-')
       .replace(/-+/g, '-')
     const frontMatter = genFrontMatter(answers)
-    if (!fs.existsSync('data/blog')) fs.mkdirSync('data/blog', { recursive: true })
+    if (!existsSync('data/blog')) mkdirSync('data/blog', { recursive: true })
     const filePath = `data/blog/${fileName ? fileName : 'untitled'}.${
       answers.extension ? answers.extension : 'md'
     }`
-    fs.writeFile(filePath, frontMatter, { flag: 'wx' }, (err) => {
+    writeFile(filePath, frontMatter, { flag: 'wx' }, (err) => {
       if (err) {
         throw err
       } else {

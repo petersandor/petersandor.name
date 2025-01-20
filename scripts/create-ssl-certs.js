@@ -1,17 +1,16 @@
-const devcert = require('devcert')
-const fs = require('fs')
+import { certificateFor } from 'devcert'
+import { existsSync, mkdirSync, writeFileSync } from 'fs'
 
-if (!fs.existsSync('./certs')) {
-  fs.mkdirSync('./certs')
+if (!existsSync('./certs')) {
+  mkdirSync('./certs')
 }
 
 const domains = ['ubuntu-vm.mshome.net']
 
-devcert
-  .certificateFor(domains, { getCaPath: true })
+certificateFor(domains, { getCaPath: true })
   .then(({ key, cert, caPath }) => {
-    fs.writeFileSync('./certs/devcert.key', key)
-    fs.writeFileSync('./certs/devcert.cert', cert)
-    fs.writeFileSync('./certs/.capath', caPath)
+    writeFileSync('./certs/devcert.key', key)
+    writeFileSync('./certs/devcert.cert', cert)
+    writeFileSync('./certs/.capath', caPath)
   })
   .catch(console.error)
