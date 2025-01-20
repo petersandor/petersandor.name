@@ -18,7 +18,8 @@ const SearchButton = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="text-gray-900 dark:text-gray-100 h-6 w-6"
+          className="h-6 w-6 text-gray-900 hover:text-primary-500 dark:text-gray-100
+          dark:hover:text-primary-400"
         >
           <path
             strokeLinecap="round"
@@ -26,13 +27,17 @@ const SearchButton = () => {
             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
           />
         </svg>
-        <kbd className="ml-1 inline-block whitespace-nowrap rounded border px-1.5 align-middle font-medium leading-4 tracking-wide text-xs text-gray-400 border-gray-400">
-          ⌘
-        </kbd>
-        <span className="font-medium leading-4 tracking-wide text-xs text-gray-400 mx-1">+</span>
-        <kbd className="inline-block whitespace-nowrap rounded border px-1.5 align-middle font-medium leading-4 tracking-wide text-xs text-gray-400 border-gray-400">
-          K
-        </kbd>
+        <div>
+          <kbd className="ml-1 inline-block hidden whitespace-nowrap rounded border border-gray-400 px-1.5 align-middle text-xs font-medium leading-4 tracking-wide text-gray-400 md:inline-block">
+            ⌘
+          </kbd>
+          <span className="mx-1 hidden text-xs font-medium leading-4 tracking-wide text-gray-400 md:inline-block">
+            +
+          </span>
+          <kbd className="inline-block hidden whitespace-nowrap rounded border border-gray-400 px-1.5 align-middle text-xs font-medium leading-4 tracking-wide text-gray-400 md:inline-block">
+            K
+          </kbd>
+        </div>
       </SearchButtonWrapper>
     )
   }

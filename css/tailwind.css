@@ -47,6 +47,15 @@
   @apply my-5;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 /* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -55,12 +64,28 @@ input:-webkit-autofill:focus {
     color 600000s 0s;
 }
 
-#comment iframe {
-  @apply w-full;
+.katex-display {
+  overflow: auto hidden;
 }
 
-.twitter-tweet iframe {
-  @apply rounded-xl;
+.content-header-link {
+  opacity: 0;
+  margin-left: -24px;
+  padding-right: 4px;
+}
+
+.content-header:hover .content-header-link,
+.content-header-link:hover {
+  opacity: 1;
+}
+
+.linkicon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#comment iframe {
+  @apply w-full;
 }
 
 .not-found {

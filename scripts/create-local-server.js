@@ -1,6 +1,6 @@
-const { createServer: createHttpsServer } = require('https')
-const next = require('next')
-const fs = require('fs')
+import { createServer as createHttpsServer } from 'https'
+import next from 'next'
+import { existsSync, readFileSync } from 'fs'
 const chalk = import('chalk')
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -8,7 +8,7 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 const PORT = process.env.PORT || 3000
 
-if (!fs.existsSync('./certs/.capath')) {
+if (!existsSync('./certs/.capath')) {
   console.error(chalk.red('\nError: Missing SSL certificates\n'))
 
   console.error(`To fix this error, run the command below:`)
@@ -22,8 +22,8 @@ app
   .then(() => {
     const server = createHttpsServer(
       {
-        key: fs.readFileSync('./certs/devcert.key'),
-        cert: fs.readFileSync('./certs/devcert.cert'),
+        key: readFileSync('./certs/devcert.key'),
+        cert: readFileSync('./certs/devcert.cert'),
       },
       (req, res) => handle(req, res)
     )

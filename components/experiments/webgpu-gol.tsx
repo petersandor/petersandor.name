@@ -400,7 +400,7 @@ function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
         <canvas ref={canvasRef} className="aspect-square w-2/4"></canvas>
       </div>
       <div className="mt-6 flex justify-center">
-        <div className="btn-group-scrollable btn-group btn-group-rounded">
+        <div className="btn-group btn-group-scrollable btn-group-rounded">
           <button type="button" className="btn" onClick={playPauseRendering}>
             {!isPaused ? (
               <>
@@ -419,7 +419,7 @@ function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
             className="btn"
             onClick={() => {
               setResetCount(resetCount + 1)
-              isPaused && playPauseRendering()
+              if (isPaused) playPauseRendering()
             }}
           >
             <ArrowPathIcon className="mr-4 h-6 w-6" />

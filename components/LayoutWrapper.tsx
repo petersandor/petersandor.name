@@ -15,7 +15,7 @@ const inter = Inter({
 const LayoutWrapper = ({ children }: Props) => {
   return (
     <SectionContainer>
-      <div className="font-Lato flex flex-col justify-between">
+      <div className="font-Lato flex h-screen flex-col justify-between font-sans">
         <Header />
         <main className="mb-auto">{children}</main>
         <Footer />
