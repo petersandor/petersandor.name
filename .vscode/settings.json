@@ -10,6 +10,9 @@
     "**/Thumbs.db": true,
     "node_modules": false
   },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
