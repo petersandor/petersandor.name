@@ -9,15 +9,17 @@ const getTweet = unstable_cache(async (id: string) => _getTweet(id), ['tweet'], 
 export default async function ThemedTweet({ id }: { id: string }) {
   try {
     const tweet = await getTweet(id)
-    return tweet ? (
+    return (
       <div className="not-prose flex justify-center">
-        <EmbeddedTweet tweet={tweet} />
+        {tweet ? <EmbeddedTweet tweet={tweet} /> : <TweetNotFound />}
       </div>
-    ) : (
-      <TweetNotFound />
     )
   } catch (error) {
     console.error(error)
-    return <TweetNotFound error={error} />
+    return (
+      <div className="not-prose flex justify-center">
+        <TweetNotFound error={error} />
+      </div>
+    )
   }
 }
