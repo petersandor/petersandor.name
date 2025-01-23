@@ -1,6 +1,7 @@
 ---
 title: 'New blog, new stack'
 date: 2023-07-10T02:14:00Z
+lastmod: 2025-01-23T23:23:36Z
 tags: ['blogging', 'webgpu', 'mdx', 'typescript', 'tailwind', 'next.js', 'react', 'javascript']
 draft: false
 summary: 'Summary of my experience with setting up a new blog again after 8 years'
@@ -40,7 +41,9 @@ Lorem ipsum dolor sit amet
 <WebGPUGameOfLife />
 ```
 
-I'm still trying to figure out how I'll handle embeds since, as you may have noticed, the Tweet embed is loaded dynamically via a `Tweet` component from [`mdx-embed`](https://github.com/PaulieScanlon/mdx-embed), which I'd like to replace with a version that is inlined at build time. It won't reflect the current count of likes and retweets, but that's a worthy trade-off for better performance and accessibility. Also, the currently used component has an [issue](https://github.com/PaulieScanlon/mdx-embed/issues/220#issuecomment-1414441546) where it may not load at all.
+~~I'm still trying to figure out how I'll handle embeds since, as you may have noticed, the Tweet embed is loaded dynamically via a `Tweet` component from [mdx-embed](https://github.com/PaulieScanlon/mdx-embed), which I'd like to replace with a version that is inlined at build time. It won't reflect the current count of likes and retweets, but that's a worthy trade-off for better performance and accessibility. Also, the currently used component has an [issue](https://github.com/PaulieScanlon/mdx-embed/issues/220#issuecomment-1414441546) where it may not load at all.~~
+
+**Edit (23-01-2025):** Tweets/X posts are now rendered on the server side thanks to the [react-tweet](https://github.com/vercel/react-tweet) package. Previously used `mdx-embed` was not updated in quite a while, and there are several [compatibility issues](https://github.com/PaulieScanlon/mdx-embed/issues/256) by now, which forced me to swap it with something else.
 
 #### Tailwind
 
