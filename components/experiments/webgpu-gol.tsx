@@ -10,7 +10,7 @@ interface Props {
 }
 
 function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
-  const canvasRef = useRef<HTMLCanvasElement>()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const pauseRef = useRef(false)
   const [isPaused, setIsPaused] = useState(false)
   const [resetCount, setResetCount] = useState(0)
@@ -19,7 +19,7 @@ function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
   const [gridSizeDebounced] = useDebounce(gridSize, 200)
 
   useEffect(() => {
-    const entry: GPU = typeof window !== 'undefined' ? navigator.gpu : null
+    const entry: GPU | null = typeof window !== 'undefined' ? navigator.gpu : null
 
     if (!entry) {
       throw new Error('WebGPU is not supported on this browser.')
@@ -30,7 +30,6 @@ function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
 
     const initGOL = async () => {
       const adapter = await entry.requestAdapter()
-      const device = (deviceRef = await adapter?.requestDevice())
 
       if (!adapter) {
         setError('No adapter available')
@@ -38,15 +37,23 @@ function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
         return Promise.reject()
       }
 
-      const canvas = canvasRef.current
+      const device = (deviceRef = await adapter?.requestDevice())
+      const canvas = canvasRef.current as HTMLCanvasElement
 
       const devicePixelRatio = window.devicePixelRatio || 1
       canvas.width = canvas.clientWidth * devicePixelRatio
       canvas.height = canvas.clientHeight * devicePixelRatio
 
       // Canvas configuration
-      const context = canvasRef.current.getContext('webgpu')
+      const context = canvas.getContext('webgpu')
       const canvasFormat = navigator.gpu.getPreferredCanvasFormat()
+
+      if (!context) {
+        setError('WebGPU context is not available')
+
+        return Promise.reject()
+      }
+
       context.configure({
         device: device,
         format: canvasFormat,
@@ -332,7 +339,7 @@ function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
         const pass = encoder.beginRenderPass({
           colorAttachments: [
             {
-              view: context.getCurrentTexture().createView(),
+              view: context!.getCurrentTexture().createView(),
               loadOp: 'clear',
               clearValue: { r: 0, g: 0, b: 0, a: 1.0 },
               storeOp: 'store',
@@ -400,29 +407,29 @@ function WebGPUGameOfLife({ defaultGridSize = 64 }: Props) {
         <canvas ref={canvasRef} className="aspect-square w-2/4"></canvas>
       </div>
       <div className="mt-6 flex justify-center">
-        <div className="btn-group btn-group-scrollable btn-group-rounded">
-          <button type="button" className="btn" onClick={playPauseRendering}>
+        <div className="join">
+          <button type="button" className="btn join-item" onClick={playPauseRendering}>
             {!isPaused ? (
               <>
-                <PauseIcon className="mr-4 h-6 w-6" />
+                <PauseIcon className="mr-2 h-6 w-6" />
                 Pause
               </>
             ) : (
               <>
-                <PlayIcon className="mr-4 h-6 w-6" />
+                <PlayIcon className="mr-2 h-6 w-6" />
                 Play
               </>
             )}
           </button>
           <button
             type="button"
-            className="btn"
+            className="btn join-item"
             onClick={() => {
               setResetCount(resetCount + 1)
               if (isPaused) playPauseRendering()
             }}
           >
-            <ArrowPathIcon className="mr-4 h-6 w-6" />
+            <ArrowPathIcon className="mr-2 h-6 w-6" />
             Reset
           </button>
         </div>
