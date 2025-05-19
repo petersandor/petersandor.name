@@ -33,7 +33,7 @@
     "mdx-embed": "^1.1.2",
     "next": "15.2.4",
     "next-contentlayer2": "0.5.5",
-    "next-themes": "^0.4.6",
+    "next-themes": "^0.3.0",
     "pliny": "0.4.1",
     "postcss": "^8.4.24",
     "react": "19.0.0",
