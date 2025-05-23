@@ -22,9 +22,23 @@ import rehypeKatexNoTranslate from 'rehype-katex-notranslate'
 import rehypeCitation from 'rehype-citation'
 import rehypePrismPlus from 'rehype-prism-plus'
 import rehypePresetMinify from 'rehype-preset-minify'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
-
 import siteMetadata from './data/siteMetadata'
+import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
+import prettier from 'prettier'
+
+export type BlogData = {
+  title: string
+  date: string
+  tags?: string[]
+  lastmod?: string
+  draft?: boolean
+  summary?: string
+  images?: unknown
+  authors?: string[]
+  layout?: string
+  bibliography?: string
+  canonicalUrl?: string
+}
 
 const root = process.cwd()
 const isProduction = process.env.NODE_ENV === 'production'
@@ -62,7 +76,7 @@ const computedFields: ComputedFields = {
 /**
  * Count the occurrences of all tags across blog posts and write to json file
  */
-function createTagCount(allBlogs) {
+async function createTagCount(allBlogs) {
   const tagCount: Record<string, number> = {}
   allBlogs.forEach((file) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
@@ -76,7 +90,8 @@ function createTagCount(allBlogs) {
       })
     }
   })
-  writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
+  const formatted = await prettier.format(JSON.stringify(tagCount, null, 2), { parser: 'json' })
+  writeFileSync('./app/tag-data.json', formatted)
 }
 
 function createSearchIndex(allBlogs) {
@@ -97,13 +112,19 @@ function createSearchIndex(allBlogs) {
  * Used in footer to automatically update copyright date
  * @param allBlogs
  */
-function createLastPostedTimestamp(allBlogs) {
-  const lastPostedTimestamp = allBlogs.reduce((acc, curr) => {
-    if (new Date(curr.date).getTime() > acc) {
-      return curr.date
-    }
-    return acc
-  }, 0)
+function createLastPostedTimestamp(allBlogs: BlogData[]) {
+  const lastPostedTimestamp = allBlogs
+    .filter((blog) => !blog.draft)
+    .reduce((prev, curr) => {
+      const currDate = new Date(curr.date)
+
+      if (currDate.getTime() > prev.getTime()) {
+        return currDate
+      }
+      return prev
+    }, new Date(0))
+
+  // console.log('Generating last post date...', lastPostedTimestamp)
 
   writeFileSync(
     './app/last-post-timestamp.json',

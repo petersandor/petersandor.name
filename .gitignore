@@ -31,6 +31,7 @@ public/sitemap.xml
 
 # misc
 .DS_Store
+/app/last-post-timestamp.json
 
 # debug
 *.log

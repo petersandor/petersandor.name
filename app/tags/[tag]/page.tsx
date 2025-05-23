@@ -6,7 +6,6 @@ import { allBlogs } from 'contentlayer/generated'
 import tagData from 'app/tag-data.json'
 import { genPageMetadata } from 'app/seo'
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 
 const POSTS_PER_PAGE = 5
 
@@ -30,37 +29,23 @@ export async function generateMetadata(props: {
 export const generateStaticParams = async () => {
   const tagCounts = tagData as Record<string, number>
   const tagKeys = Object.keys(tagCounts)
-  const paths = tagKeys.map((tag) => ({
+  return tagKeys.map((tag) => ({
     tag: encodeURI(tag),
   }))
-  return paths
 }
 
-export default async function TagPage(props: {
-  params: Promise<{ tag: string }>
-  searchParams: Promise<{ page: string }>
-}) {
+export default async function TagPage(props: { params: Promise<{ tag: string }> }) {
   const params = await props.params
   const tag = decodeURI(params.tag)
-  const searchParams = await props.searchParams
-  const pageNumber = parseInt(searchParams.page || '1')
-  // Capitalize first letter and convert space to dash
   const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1)
   const filteredPosts = allCoreContent(
     sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
   )
-  const initialDisplayPosts = filteredPosts.slice(
-    POSTS_PER_PAGE * (pageNumber - 1),
-    POSTS_PER_PAGE * pageNumber
-  )
-
-  if (initialDisplayPosts.length === 0) {
-    return notFound()
-  }
-
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
+  const initialDisplayPosts = filteredPosts.slice(0, POSTS_PER_PAGE)
   const pagination = {
-    currentPage: pageNumber,
-    totalPages: Math.ceil(filteredPosts.length / POSTS_PER_PAGE),
+    currentPage: 1,
+    totalPages: totalPages,
   }
 
   return (
