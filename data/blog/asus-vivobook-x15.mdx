@@ -16,63 +16,19 @@ This post is mostly a rant about how I discovered a potential firmware security 
 
 Earlier this year I got myself a new laptop — an **[Asus Vivobook X15](https://www.asus.com/laptops/for-home/vivobook/vivobook-15x-oled-x1503-12th-gen-intel/)**. It's a surprisingly powerful laptop with a 12th-generation Intel processor, priced at around 900 EUR.
 
-<div tabIndex={0} className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box not-prose">
-  <div className="collapse-title text-lg font-medium">
-    Laptop specifications
-  </div>
-  <div className="collapse-content text-content2">
-    <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-      <table className="table table-zebra">
-        <thead>
-          <tr>
-            <th>Component</th>
-            <th>Specification</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Processor</td>
-            <td>
-              Intel Core i5 12500H Alder Lake, 4.50 GHz (18 MB Cache)
-              Performance Cores: 4 Cores, 8 Threads, 2.5 GHz Base, 4.5 GHz Turbo
-              Efficient Cores: 8 Cores, 8 Threads, 3.3 GHz Turbo
-            </td>
-          </tr>
-          <tr>
-            <td>Operating System</td>
-            <td>Windows 11 Home</td>
-          </tr>
-          <tr>
-            <td>Memory (RAM)</td>
-            <td>
-              8GB DDR4 on board
-              8GB DDR4 SO-DIMM <em>(I had to buy and install this one though)</em>
-            </td>
-          </tr>
-          <tr>
-            <td>Storage</td>
-            <td>512GB M.2 NVMe PCIe 3.0 SSD</td>
-          </tr>
-          <tr>
-            <td>Graphics</td>
-            <td>
-              Intel UHD / Intel Iris Xe 80EU <em>(when in dual channel mode)</em>
-            </td>
-          </tr>
-          <tr>
-            <td>Display</td>
-            <td>
-              15.6-inch
-              2.8K (2880 x 1620) OLED 16:9 aspect ratio
-              0.2ms response time
-              120Hz refresh rate
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+<details>
+  <summary><strong>Laptop specifications</strong></summary>
+
+  | Component        | Specification                                                                                                                                           |
+  |------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | Processor        | Intel Core i5 12500H Alder Lake, 4.50 GHz (18 MB Cache)<br/>Performance Cores: 4 Cores, 8 Threads, 2.5 GHz Base, 4.5 GHz Turbo<br/>Efficient Cores: 8 Cores, 8 Threads, 3.3 GHz Turbo |
+  | Operating System | Windows 11 Home                                                                                                                                         |
+  | Memory (RAM)     | 8GB DDR4 on board<br/>8GB DDR4 SO-DIMM <em>(I had to buy and install this one though)</em>                                                             |
+  | Storage          | 512GB M.2 NVMe PCIe 3.0 SSD                                                                                                                            |
+  | Graphics         | Intel UHD / Intel Iris Xe 80EU <em>(when in dual channel mode)</em>                                                                                    |
+  | Display          | 15.6-inch<br/>2.8K (2880 x 1620) OLED 16:9 aspect ratio<br/>0.2ms response time<br/>120Hz refresh rate                                                 |
+
+</details>
 
 ### CPU
 
