@@ -31,7 +31,7 @@
     "hast-util-from-html-isomorphic": "^2.0.0",
     "image-size": "2.0.2",
     "mdx-embed": "^1.1.2",
-    "next": "^15.2.6",
+    "next": "^15.2.8",
     "next-contentlayer2": "0.5.5",
     "next-themes": "^0.3.0",
     "pliny": "0.4.1",
